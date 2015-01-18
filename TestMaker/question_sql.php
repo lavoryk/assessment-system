@@ -1,0 +1,51 @@
+<?php
+include ("../inc/question.inc.php");
+$obj=new CQuestion();
+if(!$obj->IsLogin())
+{
+	header("location:login.php");
+}
+else
+{	
+	$Action=empty($_GET["Action"])?"":$_GET["Action"];
+	if(strcmp($Action,"DEL")==0)
+	{		
+		$ID_QU=empty($_GET["ID_QU"])?(0):($_GET["ID_QU"]);
+		$ID_TEST=empty($_GET["ID_TEST"])?(0):($_GET["ID_TEST"]);		
+		$obj->DeleteQuestion($ID_QU);
+	}
+	else
+	{		
+		$ID_QU=empty($_POST["ID_QU"])?(0):($_POST["ID_QU"]);		
+		$Q_TYPE=empty($_POST["Q_TYPE"])?(0):($_POST["Q_TYPE"]);	
+		$Q_Body=empty($_POST["Q_Body"])?(0):($_POST["Q_Body"]);
+		$ID_LEVEL=empty($_POST["ID_LEVEL"])?(0):($_POST["ID_LEVEL"]);
+		$A_True=empty($_POST["A_True"])?(array()):($_POST["A_True"]);
+		$A_Body=empty($_POST["A_Body"])?(array()):($_POST["A_Body"]);
+		$A_SecondBody=empty($_POST["A_SecondBody"])?(array()):($_POST["A_SecondBody"]);
+		$ID_AN=empty($_POST["ID_AN"])?(array()):($_POST["ID_AN"]);		
+		$ID_TEST=empty($_POST["ID_TEST"])?(0):($_POST["ID_TEST"]);
+		
+		/*print_r($A_Body);
+		print_r($A_SecondBody);
+		print_r($ID_AN);
+		print_r($A_True);*/
+		if($ID_QU > 0)
+		{
+			$obj->ChangeQuestion($ID_QU,$Q_TYPE,$ID_LEVEL,$Q_Body,$ID_AN,$A_True,$A_Body,$A_SecondBody);
+		}
+		else		
+		{			
+			$obj->AddQuestion($ID_TEST,$Q_TYPE,$ID_LEVEL,$Q_Body,$ID_AN,$A_True,$A_Body,$A_SecondBody);
+		}
+	}
+	if(empty($_POST["AddNext"]))
+	{
+		header("location:questions.php?ID_TEST=$ID_TEST");
+	}
+	else
+	{
+		header("location:question_add_change.php?ID_TEST=$ID_TEST&Q_TYPE=$Q_TYPE&AddNext=on");
+	}
+}
+	?>

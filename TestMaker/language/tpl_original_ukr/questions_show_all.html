@@ -1,0 +1,23 @@
+<div class="caption">Завдання тесту <b>{TestName}</b></div>
+<table id="list" cellspacing="1">
+<caption>
+<!-- BEGIN lelel_info_row -->
+Містить {QTYINTEST} завдань {LEVEL}-го рівня. Повинен містити мінімум {NUMBER2} завдань {LEVEL}-го рівня.<br />
+<!-- END lelel_info_row -->
+</caption>
+<tr><th>Рівень</th><th>ID_QU</th><th>Текст завдання</th><th>Статистика по логах false/true</th><th>Загальна статистика false/true</th></tr>
+<!-- BEGIN question_row_left -->
+<tr><td rowspan="2">{ID_Level}</td><td rowspan="2">{ID_QU}</td><td>{Q_Body}</td>
+	<td rowspan="2">{QTY_FALSE_LOG}/{QTY_TRUE_LOG}</td><td rowspan="2">{QTY_FALSE_ALL}/{QTY_TRUE_ALL}</td>
+</tr>
+<tr>
+	<td>	
+	<table id="sublist" cellspacing="1">
+	<!-- BEGIN row_answer -->
+	<tr><td>{A_True}</td><td>{A_Body}</td></tr>
+	<!-- END row_answer -->
+	</table>	
+	</td>
+</tr>
+<!-- END question_row_left -->
+</table>

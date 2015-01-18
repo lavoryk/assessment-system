@@ -1,0 +1,59 @@
+<script type="text/javascript">
+<!--
+var id_gr_left={ID_GR_LEFT_PREV_VALUE};
+var id_gr_right={ID_GR_RIGHT_PREV_VALUE};
+function SubmitForm()
+{	
+	if(document.FormMoveStudent.id_gr_left.value==document.FormMoveStudent.id_gr_right.value)
+	{		
+		alert("Не можна переміщати в ту саму групу!");
+		document.FormMoveStudent.id_gr_right.value=id_gr_right;
+		document.FormMoveStudent.id_gr_left.value=id_gr_left;
+		return false;
+	}
+	id_gr_right=document.FormMoveStudent.id_gr_right.value;
+	id_gr_left=document.FormMoveStudent.id_gr_left.value;
+	document.FormMoveStudent.action="student_move.php";
+	document.FormMoveStudent.submit();	
+	return true;
+}
+-->
+</script>
+<form name="FormMoveStudent" action="" method="GET">
+<table id="list" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><th>Група 1</th><th>Група 2</th></tr>
+<tr><td>
+<select name="id_gr_left" onchange="return SubmitForm();">
+<option value="0">Виберіть групу</option>
+<!-- BEGIN group_row_left -->
+<option value="{ID_GR_LEFT}" {SELECTED_LEFT}>{GRNAME_LEFT}</option>>
+<!-- END group_row_left -->
+</select>
+</td><td>
+<select name="id_gr_right" onchange="return SubmitForm();">
+<option value="0">Виберіть групу</option>
+<!-- BEGIN group_row_right -->
+<option value="{ID_GR_RIGHT}" {SELECTED_RIGHT}>{GRNAME_RIGHT}</option>>
+<!-- END group_row_right -->
+</select>
+</td></tr>
+<tr>
+<td valign="top">
+<table id="list" cellspacing="1">
+<tr><th>№</th><th>Студент</th><th>В право</th></tr>
+<!-- BEGIN student_row_left -->
+<tr><td>{NUM_LEFT}</td><td>{STNAME}</td><td align="center"><a href="student_move_sql.php?id_st={ID_ST}&id_gr_left={ID_GR_LEFT_PREV_VALUE}&id_gr_right={ID_GR_RIGHT_PREV_VALUE}&direction=right"> >> </a></td></tr>
+<!-- END student_row_left -->
+</table>
+</td>
+<td valign="top">
+<table id="list" cellspacing="1">
+<tr><th>В ліво</th><th>№</th><th>Студент</th></tr>
+<!-- BEGIN student_row_right -->
+<tr><td align="center"><a href="student_move_sql.php?id_st={ID_ST}&id_gr_left={ID_GR_LEFT_PREV_VALUE}&id_gr_right={ID_GR_RIGHT_PREV_VALUE}&direction=left"> << </a></td><td>{NUM_RIGHT}</td><td>{STNAME}</td></tr>
+<!-- END student_row_right -->
+</table>
+</td>
+</tr>
+</table>
+</form>

@@ -1,0 +1,15 @@
+
+body {color: #000000; background-color: #f7f7f7 font-style:normal; font-size:13px; font-family: Arial, Tahoma; margin-top:20px;}
+
+a.data {color:darkred; text-decoration:underline; font-style:bold; text-indent:13px; font-family: Vernada, Tahoma; }
+
+
+td.block { background-color:darkred; color:white; font-style:bold; }
+
+table.border { border-style:solid;border-width:2px; border-color:darkred;}
+
+div { margin-left:60px; text-indent:14px; font-style:bold; }
+
+hr { color:darkred; }
+
+.button	{font-family:tahoma, verdana, sans-serif; font-size:11px; color:#ffffff; border:solid 1px #184582; background-color:#184582;}

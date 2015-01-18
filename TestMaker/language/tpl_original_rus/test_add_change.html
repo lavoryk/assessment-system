@@ -1,0 +1,54 @@
+<script type="text/javascript">
+<!--
+function CheckForm()
+{
+   	if(document.FormTest.TestName.value.length==0)
+	{
+		alert("Не указано название теста!!!");
+		document.FormTest.TestName.select();
+		return false;
+	}
+	if(document.FormTest.TestTime.value.length==0||document.FormTest.TestTime.value.search(/^[1-9]\d*$/)==-1)
+	{
+		alert("Не верно указано время прохождения теста!!!");
+		document.FormTest.TestTime.select();
+		return false;	
+	}	
+	if(document.FormTest.ShowTask.checked && document.FormTest.TaskURL.value.length==0)
+	{
+		alert("URL пустой!!!");
+		document.FormTest.ShowTask.select();
+		return false;
+	}   	
+	document.FormTest.action="test_sql.php";
+    return true;    
+}
+-->
+</script>
+<!-- BEGIN links_test -->
+Быстрый переход к
+<a href="level_question.php?ID_TEST={ID_TEST}"> уровням</a>,
+<a href="questions.php?ID_TEST={ID_TEST}">вопросам</a> теста.
+<!-- END links_test -->
+<!-- BEGIN links_tests_block -->
+Быстрый переход к
+<a href="level_question.php?ID_TEST={ID_TEST}">уровням блока тестов</a>,
+<a href="tests_in_block.php?ID_TEST_BLOCK={ID_TEST}">тестам, что входят в блок тестов</a>.
+<!-- END links_tests_block -->
+<!-- BEGIN exist_test_row -->
+<div class="error">Тест или блок тесты <b>{ExistTestName}</b> уже существует.</div>
+<!-- END exist_test_row -->
+<table id="list" cellspacing="1">
+<form action="" method="POST" name="FormTest" onsubmit="return CheckForm();">
+<input type="hidden" name="ID_TEST" value="{ID_TEST}" />
+<input type="hidden" name ="IsBlock" value="{IsBlock}" />
+<tr><td>Название теста</td><td><input type="text" value="{TestName}" name ="TestName" size="90"/></td></tr>
+<tr><td>Время на тест</td><td><input type="text" value="{TestTime}" name ="TestTime" size="10"/></td></tr>
+<tr><td>Запретить переход на предыдущий вопрос</td><td><input type="checkbox" name="DisableShowPrevTask" {DisableShowPrevTask} /></td></tr>
+<tr><td>Время на один вопрос</td><td><input type="checkbox" name="IsTimeForOneQuestion" {IsTimeForOneQuestion}  disabled /></td></tr>
+<tr><td>Показать задание</td><td><input type="checkbox" name="ShowTask" {ShowTask} /></td></tr>
+<tr><td>Адрес задания</td><td><input type="text" name="TaskURL" value="{TaskURL}" size="90" /></td></tr>
+<tr><td><input type="submit" value="Сохранить" {DISABLE_EDIT} /></td><td><input type="reset" value="Очистить" /></td></tr>
+</table>
+</form>
+<a href="tests.php?IsBlock={IsBlock}">Возвратится назад</a>

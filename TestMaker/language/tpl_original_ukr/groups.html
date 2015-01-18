@@ -1,0 +1,70 @@
+<script type="text/javascript">
+<!--
+function DelConfirm(id_gr)
+{	
+	if(confirm("Ви впевнені?"))
+	{
+		document.location = "group_sql.php?ID_GR="+id_gr+"&Action=DEL";
+	}	
+}
+-->
+</script>
+<!-- BEGIN add_new_group -->
+<a href="groups.php?ID_GR=-1">&bull; Додати нову групу.</a> 
+<!-- END add_new_group -->
+<a href="group_priv.php" target="group_priv">&bull; Права доступу до груп.</a>
+<a href="student_move.php" target="student_move">&bull; Перемістити студента.</a>
+<div class='caption'>&bull; Перегляд списку груп.</div>
+<table id="list" cellspacing="1">
+<tr><th>№</th><th>Група</th><th>Студенти групи</th><th>Розклад групи</th><th colspan="2">Дії</th></tr>
+<!-- BEGIN group_row -->
+<tr>
+<td><img src="img/join.gif" alt="" /><img src="img/da.gif" alt="" />{NUM}</td>
+<td>{GrName}</td>
+<td><a href="students.php?ID_GR={ID_GR}">Студенти групи</a></td>
+<td>Розклад</td>
+<!-- BEGIN can_change -->
+<td><a href="groups.php?ID_GR={ID_GR}">Редагувати</a></td>
+<td><a href="javascript:DelConfirm({ID_GR})">Видалити</a></td>
+<!-- END can_change -->
+<!-- BEGIN can't_change -->
+<td>----------</td>
+<td>----------</td>
+<!-- END can't_change -->
+</tr>
+<!-- END group_row -->
+<!-- BEGIN group_row_add_edit -->
+<script type="text/javascript">
+<!--
+
+function CheckForm()
+{
+	if(document.FormGroup.GrName.value.length==0)
+	{
+		alert("Не вказзано ім'я групи!");
+		document.FormGroup.GrName.select();		
+		return false;
+	}
+	document.FormGroup.action="group_sql.php";
+	return true;	
+}
+setTimeout("document.FormGroup.GrName.select()",500);
+-->
+</script>
+<!-- BEGIN error_add_edit -->
+<tr><td colspan="7" class="error">------Група з таки ім'ям вже є!----</td></tr>
+<!-- END error_add_edit -->
+<form action="" method="POST" name="FormGroup" onsubmit="return CheckForm();">
+<input type="hidden" name="ID_GR" value="{ID_GR}" />
+<tr>
+<td><img src="img/join.gif" alt="" /><img src="img/da.gif" alt="" />{NUM}</td>
+<td><input type="text" value="{GrName}" name ="GrName" /></td>
+<td>Студенти групи</td>
+<td><button type="submit" >Зберегти</button></td>
+<td><a href="groups.php">Відмінити</a></td>
+<td>--</td></tr>
+</form>
+<!-- END group_row_add_edit -->
+</table>
+{ADD_NEW_GROUP}
+<a href="student_move.php" target="student_move">&bull; Перемістити студента.</a>

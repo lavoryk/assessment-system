@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Редактор тестов 1.1.2</title>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<link href="style/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript">
+<!--
+function SelectLanguage()
+{		
+	var today = new Date();
+	var exp = new Date();
+	exp.setTime(today.getTime() + 365*24*60*60*1000);
+	document.cookie = "INDEX_LANGUAGE="+document.getElementById('language').value+ "; expires=" + exp.toGMTString();
+	//document.URL=document.URL;
+	document.location=document.location;	
+	return false;
+}
+-->
+</script>
+
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td width="9%" height="9"><img src="img/bgul.jpg" width="141" height="28"></td>
+    <td width="100%" height="9" background="img/bg.gif"></td>
+    <td  background="img/menu.jpg" width="343" height="9" valign="middle" align="center" id="menutop" nowrap> 
+      <font color="#000000" size="-2">Виберите язык</font>
+<select name="language" id="language" onchange="return SelectLanguage();">
+        <!-- BEGIN row_language -->
+        <option value="{INDEX_LANGUAGE}" {SELECTED_LANGUAGE}>{LANGUAGE}</option>
+        <!-- END row_language -->
+      </select>
+	</td>
+    <td height="9" background="img/bg.gif"></td>
+  </tr>
+  <tr> 
+    <td width="141"><img src="img/test_05.jpg" width="141" height="128"></td>
+    <td width="22%" background="img/bg2l.gif" valign="middle" align="right"><img src="img/logo.gif" width="78" height="128"></td>
+    <td width="30%" valign="top" background="img/rt_rus.jpg"></td>
+    <td width="39%" valign="top"><img src="img/hand.jpg" width="218" height="128"></td>
+  </tr>
+  <tr> 
+    <td colspan="4" height="35" background="img/list.gif" valign="middle"> 
+ 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr valign="top"> 
+          <td height="52" background="img/m1.gif">&nbsp;</td>
+          <td background="img/m2.gif" width="58" height="52">&nbsp;</td>
+          <td background="img/m3.gif" width="70%"  id="menutop" valign="middle" align="center"> 
+<!-- BEGIN Menu -->
+&bull; <a href="plugins.php">Plugins</a>
+&bull; <a href="tests.php?IsBlock=N">Тесты</a>
+&bull; <a href="tests.php?IsBlock=Y">Блоки тестов</a>
+&bull; <a href="groups.php">Группы</a>
+&bull; <a href="results.php">Результаты</a>
+<!-- END Menu -->
+<!-- BEGIN SysAdminMenu -->
+&bull; <a href="teachers.php">Преподаватели</a>
+<!-- END SysAdminMenu -->
+<!-- BEGIN LoginMenu -->
+&bull; <a href="login.php">Войти</a>
+<!-- END LoginMenu -->
+<!-- BEGIN LogoutMenu -->
+&bull; <a href="teacher_change_pass.php">Сменить пароль</a>
+&bull; <a href="logout.php">Выход</a>
+<!-- END LogoutMenu -->
+          </td>
+          <td width="56" height="52" background="img/m4.gif">&nbsp;</td>
+          <td background="img/m1.gif" height="52">&nbsp;</td>
+        </tr>
+      </table>
+	  
+    </td>
+  </tr>
+
+  <tr valign="top"> 
+    <td colspan="4" height="253" bgcolor="f7f7f7"> 
+      <table width="100%" border="0" cellspacing="5" cellpadding="5" id="list">
+        <tr valign="top"> 
+          <td height="24">{CONTENT}</td>
+        </tr>
+      </table>
+	  
+       </td>
+  </tr>
+  <tr> 
+    <td colspan="4" height="40" background="img/bgd.gif" align="center" valign="middle"><font size="2">«Copyright 
+      © 2002-2006 by <a href="http;//lavoryk.h1.ru">lavoryk.h1.ru</a>»</font></td>
+  </tr>
+</table>
+<br>
+</body>
+</html>

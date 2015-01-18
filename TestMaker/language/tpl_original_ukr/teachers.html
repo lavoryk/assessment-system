@@ -1,0 +1,26 @@
+<script type="text/javascript">
+<!--
+function DelConfirm(ID_TE)
+{
+	if (confirm('Ви впевнені?'))
+	{
+		document.location ='teacher_sql.php?ID_TE='+ID_TE+'&Action=DEL';
+	}	
+}
+-->
+</script>
+<div class='caption'>&bull; Перегляд списку викладачів.</div>
+<a href="teacher_add_change.php">Додати нового викладача</a>
+<table id="list" cellspacing="1">
+<tr><th>№</th><th>Ім`я</th><th>Ств. Групи</th><th>Ств. Тести</th><th>Адм. Груп</th><th>Адм. Тести</th>
+<th>Адм. Сис.</th><th>Може переглядати всі результати</th><th colspan="3">Дії</th></tr>
+<!-- BEGIN teacher_row -->
+<tr><td><img src="img/join.gif"alt="" /><img src="img/da.gif" alt="" />{NUM}</td>
+<td>{TEName}</td><td>{GroupCreator}</td><td>{TestCreator}</td><td>{GroupAdmin}</td><td>{TestAdmin}</td><td>{SysAdmin}</td><td>{ResultReader}</td>
+<td><a href="teacher_add_change.php?ID_TE={ID_TE}">Редагувати</a></td>
+<td><a href="javascript:DelConfirm({ID_TE})">Видалити</a></td>
+<td><a href="teacher_change_pass.php?ID_TE={ID_TE}">Змінити пароль</a></td>
+</tr>
+<!-- END teacher_row -->
+</table>
+<a href="teacher_add_change.php">Додати нового викладача</a>

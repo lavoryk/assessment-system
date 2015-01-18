@@ -1,0 +1,79 @@
+<div class="caption">Розклад здачі тесту {TestName}</div>
+<script type="text/javascript">
+<!--
+function DelConfirm(ID_TEST,ID_GR)
+{	
+	if(confirm("Ви впевнені?"))
+	{
+		document.location = 'time_table_sql.php?ID_TEST='+ID_TEST+'&ID_GR='+ID_GR+'&Action=DEL';
+	}
+}
+-->
+</script>
+
+<a href="time_table.php?ID_TEST={ID_TEST}&ID_GR=-1">Додати розклад здачі для тесту</a>
+<table id="list" cellspacing="1">
+<tr><th>№</th><th>Назва групи</th><th>Вести протокол<th>Дата початку</th><th>Дата кінця</th><th colspan="2">Дії</th></tr>
+<!-- BEGIN can_change_time_row -->
+<tr>
+<td>{NUM}</td><td>{GrName}</td><td>{WriteLog}</td><td>{S_DATE}</td><td>{F_DATE}</td>
+<td><a href="time_table.php?ID_TEST={ID_TEST}&ID_GR={ID_GR}">Редагувати</a></td>
+<td><a href="javascript:DelConfirm({ID_TEST},{ID_GR})">Видалити</a></td>
+</tr>
+<!-- END can_change_time_row -->
+<!-- BEGIN can't_change_time_row -->
+<tr>
+<td>{NUM}</td><td>{GrName}</td><td>{WriteLog}</td><td>{S_DATE}</td><td>{F_DATE}</td>
+<td colspan="2">---------</td>
+</tr>
+<!-- END can't_change_time_row -->
+<!-- BEGIN time_row_add_edit -->
+<tr>
+<script type="text/javascript">
+<!--
+function CheckForm()
+{
+	if(!(document.FormTimeTable.ID_GR.value>0))
+	{
+		alert("Не вибрано групу!");
+		return false;	
+	}
+	if(document.FormTimeTable.S_DATE.value.length==0||document.FormTimeTable.S_DATE.value.search(/^20\d{2}-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3[10]))$/)==-1)
+    {
+    	alert("Не вказано дата початку тестування!");
+        document.FormTimeTable.S_DATE.select();
+        return false;
+    }
+	if(document.FormTimeTable.F_DATE.value.length==0||document.FormTimeTable.F_DATE.value.search(/^20\d{2}-((0[1-9])|(1[0-2]))-((0[1-9])|([1-2][0-9])|(3[10]))$/)==-1)
+    {
+    	alert("Не вказано дата закінчення тестування!");
+        document.FormTimeTable.F_DATE.select();
+        return false;
+    }	
+	document.FormTimeTable.action="time_table_sql.php";
+	return true;
+}
+-->
+</script>
+<form action="" method="POST" name="FormTimeTable" onsubmit="return CheckForm();">
+<input type="hidden" name="ID_TEST" value="{ID_TEST}" />
+<input type="hidden" name="PREV_ID_GR" value="{PREV_ID_GR}" />
+<td>{NUM}</td>
+<td>
+<select name="ID_GR">
+<option value="0">Виберіть групу</option>
+<!-- BEGIN group_row -->
+<option value="{ID_GR}" {SELECTED}>{GrName}</option>
+<!-- END group_row --> 
+</select>
+</td>
+<td><input type="checkbox" name="WriteLog" {CHECKED_WRITELOG} /></td>
+<td><input type="text" name="S_DATE" value="{S_DATE}"  size ="10" maxlength="10" /></td>
+<td><input type="text" name="F_DATE" value="{F_DATE}" size ="10" maxlength="10" /></td>
+<td><button type="submit">Зберегти</button></td>
+<td><a href="time_table.php?ID_TEST={ID_TEST}">Відмінити</a></td>
+</tr>
+</form>
+<!-- END time_row_add_edit -->
+</table>
+<a href="time_table.php?ID_TEST={ID_TEST}&ID_GR=-1">Додати розклад здачі для тесту</a>

@@ -1,0 +1,86 @@
+<script type="text/javascript">
+<!--
+var id_test_left={ID_TEST_LEFT_PREV_VALUE};
+var id_test_right={ID_TEST_RIGHT_PREV_VALUE};
+function SubmitForm()
+{
+	if(document.FormMoveQuestion.id_test_left.value==document.FormMoveQuestion.id_test_right.value)
+	{		
+		alert("Не можна переміщати в той самий тест!");
+		document.FormMoveQuestion.id_test_right.value=id_test_right;
+		document.FormMoveQuestion.id_test_left.value=id_test_left;
+		return false;
+	}
+	id_test_right=document.FormMoveQuestion.id_test_right.value;
+	id_test_left=document.FormMoveQuestion.id_test_left.value;	
+	document.FormMoveQuestion.action="question_move.php";
+	document.FormMoveQuestion.submit();
+	return true;
+}
+function selectMenu( mItem )
+{
+	if (document.getElementById(mItem).style.display == 'none') {
+		document.getElementById(mItem).style.display = ''; 
+		//document.images['i'+mItem].src='/img/bd.gif';
+	} else {
+		document.getElementById(mItem).style.display = 'none'; 
+		//document.images['i'+mItem].src='/img/br.gif';
+	}
+}
+function DelConfirm(id_qu,id_test_left,id_test_right)
+{
+	
+	if(confirm("Ви впевнені?"))
+	{
+		document.location ='question_move_sql.php?id_qu='+id_qu+'&id_test_left='+id_test_left+'&id_test_right='+id_test_right+'&action=del';
+	}
+}
+
+-->
+</script>
+<form name="FormMoveQuestion" action="" method="GET">
+<table id="list" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><th>Тест з якого буде здійснено переміщення</th><th><--></th><th>Тест в який буде здійснено переміщення</th></tr>
+<tr><td>
+<select name="id_test_left" onchange="return SubmitForm();">
+<option value="0">Виберіть тест з якого буде здійснено переміщення</option>
+<!-- BEGIN test_row_left -->
+<option value="{ID_TEST_LEFT}" {SELECTED_LEFT}>{TestName_LEFT}</option>>
+<!-- END test_row_left -->
+</select>
+</td>
+<th><a href="question_move.php?id_test_left={ID_TEST_RIGHT_PREV_VALUE}&id_test_right={ID_TEST_LEFT_PREV_VALUE}"><pre>Поміняти місцями</pre></a></th>
+<td>
+<select name="id_test_right" onchange="return SubmitForm();">
+<option value="0">Виберіть тест в який буде здійснено переміщення</option>
+<!-- BEGIN test_row_right -->
+<option value="{ID_TEST_RIGHT}" {SELECTED_RIGHT}>{TestName_RIGHT}</option>>
+<!-- END test_row_right -->
+</select>
+</td></tr>
+<tr>
+<td valign="top" colspan="3">
+	<table id="list" cellspacing="1">
+	<tr><th colspan="3">Рівень</th><th>Текст завдання</th><th>Відповіді</th><th colspan="3">Дії</th></tr>
+	<!-- BEGIN question_row_left -->
+	<tr><td>{ID_Level}</td><td>Dn</td><td>Up</td><td>{Q_Body}</td><td><a href="javascript:selectMenu({ID_QU})">Пок./Прих.</a></td>
+		<td><a href="question_move_sql.php?id_qu={ID_QU}&id_test_left={ID_TEST_LEFT_PREV_VALUE}&id_test_right={ID_TEST_RIGHT_PREV_VALUE}&action=move" onclick="if ({ID_TEST_RIGHT_PREV_VALUE}==0){alert('Виберіть тест в який буде здійснено переміщення!');return false;}else{return true;}">move>></a></td>
+		<td><a href="question_move_sql.php?id_qu={ID_QU}&id_test_left={ID_TEST_LEFT_PREV_VALUE}&id_test_right={ID_TEST_RIGHT_PREV_VALUE}&action=copy" onclick="if ({ID_TEST_RIGHT_PREV_VALUE}==0){alert('Виберіть тест в який буде здійснено переміщення!');return false;}else{return true;}">copy>></a></td>
+		<td><a href="javascript:DelConfirm({ID_QU},{ID_TEST_LEFT_PREV_VALUE},{ID_TEST_RIGHT_PREV_VALUE})">del</a></td>
+	</tr>
+	<tr><td colspan="3"> </td><td colspan="5">
+	<div id="{ID_QU}" style="position:relative;display:none;">
+		<table id="sublist" cellspacing="1">
+		<!-- BEGIN row_answer -->
+		<tr><td>{A_True}</td><td>{A_Body}</td></tr>
+		<!-- END row_answer -->
+		</table>
+	</div>
+	</td>
+	</tr>
+	<!-- END question_row_left -->
+	</table>
+</td>
+</tr>
+</table>
+</form>

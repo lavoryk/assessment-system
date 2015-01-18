@@ -1,0 +1,25 @@
+
+td#menutop 	{font-family: 11px tahoma, verdana, sans-serif; font-size:65%; color:#FF7100; padding:0px 10px 0px 10px; text-transform:uppercase;}
+
+a	{font-family: normal 11px tahoma, verdana, sans-serif; color:#000000; text-decoration:none}
+a:hover	{font-family: normal 11px tahoma, verdana, sans-serif; color:#000000; text-decoration:underline;}
+a:visited	{font-family: normal 11px tahoma, verdana, sans-serif; color:#000000;}
+
+
+td#bottom {background:#EFEFEF; color:white; border-top: 1px dotted #006699; color:#006699; font: normal 11px "trebuchet ms"; letter-spacing:1ex;}
+
+td#content div.caption{border: 1px #dfdfdf solid; background:#EFEFEF; color:#006699;  font: normal 14px Tahoma; padding-left:1em; margin: 1ex 0;}
+td#content div.error{border: 1px #dfdfdf solid; background:#FF8F8F; color:#006699;  font: normal 14px Tahoma; padding-left:1em; margin: 1ex 0;}
+td#content {text-align: justify; background:white; padding:1em; line-height: 20px; font: normal 11px Verdana, Arial, Helvetica, sans-serif;}
+td#content div.text{padding: 1ex 1em;}
+
+table#list {border: 1px #dfdfdf solid; font: normal 11px Verdana, Arial, Helvetica, sans-serif; background:white; margin: 1ex 0; width:100%;}
+
+table#list td{padding-left: 1em; background: #EFEFEF;}
+
+
+table#sublist {border: 1px #dfdfdf solid; font: normal 11px Verdana, Arial, Helvetica, sans-serif; background:white;}
+table#sublist th{background: #DfE3E7;font: bold 12px "trebuchet ms" Verdana, Arial, Helvetica, sans-serif;}
+table#sublist td{padding-left: 0em; background: #EFEFEF;}
+
+.button	{font-family:tahoma, verdana, sans-serif; font-size:11px; color:#ffffff; border:solid 1px #184582; background-color:#184582;}

@@ -1,0 +1,43 @@
+<script type="text/javascript">
+<!-- 
+	function CheckFormTeacher()
+	{
+		if(document.FormTeacher.TEName.value.length==0)
+		{
+			alert("Не вказано ім'я!");
+			document.FormTeacher.TEName.select();
+			return false;
+		}
+		if(document.FormTeacher.elements["USPass"]!=null && document.FormTeacher.elements["USPass_2"]!=null)
+		{
+			if(document.FormTeacher.elements["USPass"].value!=document.FormTeacher.elements["USPass_2"].value)
+			{
+				alert("Не співпадають паролі!");
+				return false;
+			}	
+		}		
+		document.FormTeacher.action="teacher_sql.php";
+		return true;
+	}
+-->
+</script>
+<div class='caption'>&bull; Зміна данних викладача.</div>
+<form action="" method="POST" name="FormTeacher" onsubmit="return CheckFormTeacher();">
+<input type="hidden" name="ID_TE" value="{ID_TE}" />
+<table id="list" cellspacing="1" style="width:60%">
+<tr><td>Ім`я</td><td><input type="text" name="TEName" size="35" maxlength="35" value="{TEName}" /></td></tr>
+<tr><td>Створювач тестів</td><td><input type="checkbox" name="TestCreator" {TestCreator} /></td></tr>
+<tr><td>Створювач груп</td><td><input type="checkbox" name="GroupCreator" {GroupCreator} /></td></tr>
+<tr><td>Адміністратор тестів</td><td><input type="checkbox" name="TestAdmin" {TestAdmin} /></td></tr>
+<tr><td>Адміністратор груп</td><td><input type="checkbox" name="GroupAdmin" {GroupAdmin} /></td></tr>
+<tr><td>Адміністратор системи</td><td><input type="checkbox" name="SysAdmin" {SysAdmin} /></td></tr>
+<tr><td>Може переглядати всі результати</td><td><input type="checkbox" name="ResultReader" {ResultReader} /></td></tr>
+<!-- BEGIN New_Pass -->
+<tr><td>Пароль</td><td><input type="password" name="USPass"/></td></tr><tr><td>Підтверження</td><td><input type="password" name="USPass_2"/></td></tr>
+<!-- END New_Pass -->
+<!-- BEGIN Change_Pass -->
+<tr><td colspan="2"><a href="teacher_change_pass.php?ID_TE={ID_TE}">Змінити пароль</a></td></tr>
+<!-- END Change_Pass -->
+</table>
+&nbsp; <input type="submit" value="Зберегти"/> &nbsp; <input type="reset" value="Очистити"/>
+</form>

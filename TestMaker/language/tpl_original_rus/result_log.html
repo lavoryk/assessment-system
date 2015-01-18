@@ -1,0 +1,45 @@
+Студент <b>{StName}</b>, группы <b>{GrName}</b> с теста <b>{TestName}</b> получил <b>{Result}</b>.
+<table id="list" border="0" cellpadding="0" cellspacing="0" width="100%">
+<!-- BEGIN row_question -->
+<!-- BEGIN row_correct -->
+<tr><td colspan="2">№ {NUM}</td><td>На задание с уровнем {ID_Level}, количество балов {Point} дал <font color="Green"><b>правильный ответ</b></font>.</td></tr>
+<!-- END row_correct -->
+<!-- BEGIN row_incorrect -->
+<tr><td colspan="2">№ {NUM}</td><td>На задание с уровнем {ID_Level}, количество балов {Point} дал <font color="Red"><b>не правильный ответ</b></font>.</td></tr>
+<!-- END row_incorrect -->
+<tr><th colspan="3">Вопрос</th></tr>
+<tr><td colspan="2"></td><td>{Q_Body}</td></tr>
+
+<!-- BEGIN row_answer_header -->
+<tr><th width="5%">Студ.Вар.</th><th width="5%">Прав.Вар.</th><th>Ответы</th></tr>
+<!-- END row_answer_header -->
+
+<!-- BEGIN row_answer_header3 -->
+<!-- отсутсвует -->
+<!-- END row_answer_header3 -->
+
+<!-- BEGIN row_answer_header4 -->
+<tr><th colspan="2">Студ.Вар.</th><th>Прав.Вар.</th></tr>
+<!-- END row_answer_header4 -->
+
+<!-- BEGIN row_answer -->
+<tr><td>{ST_V}</td><td>{REAL_V}</td><td>{A_Body}</td></tr>
+<!-- END row_answer -->
+
+<!-- BEGIN row_answer3 -->
+<tr><td colspan="2">
+<table  id="list" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr><th>Вариант студента.</th><th>Правильный вариант.</th></tr>
+<tr><td>{ST_V}</td><td>{A_Body}</td></tr>
+</table>
+</td></tr>
+<!-- END row_answer3 -->
+
+<!-- BEGIN row_answer4 -->
+<tr><td colspan="2">{ST_V}</td><td>{A_Body}</td></tr>
+<!-- END row_answer4 -->
+
+
+<tr><td colspan="3"><hr /></td></tr>
+<!-- END row_question -->
+</table>

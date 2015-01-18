@@ -1,0 +1,22 @@
+<!--
+This rows was using and inserting when USE_SPAW is false
+or when the spaw was not supported by browser
+-->
+<!-- BEGIN q_body_row -->
+<textarea style="width:100%; height:100px" name="Q_Body">{Q_BODY}</textarea>
+<!-- END q_body_row -->
+<!-- BEGIN a_body_row -->
+<textarea name="A_Body[{A_INDEX}]" style="width:100%; height:60px">{A_BODY}</textarea>
+<!-- END a_body_row -->
+
+<!-- BEGIN a3_body_row -->
+<input type="text" name="A_Body[{A_INDEX}]" value="{A_BODY}" size="100%"/>
+<!-- END a3_body_row -->
+
+<!-- BEGIN a4_body_row -->
+<input type="hidden" name="A_SecondBody[{A_INDEX}]" value="{A_SECOND_BODY}" size="100%"/><br />
+<!-- END a4_body_row -->
+
+<!-- BEGIN a5_body_row -->
+Термін <input type="text" name="A_SecondBody[{A_INDEX}]" value="{A_SECOND_BODY}" size="100%"/><br />
+<!-- END a5_body_row -->

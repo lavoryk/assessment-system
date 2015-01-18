@@ -1,0 +1,40 @@
+<?php
+include "../inc/teacher.inc.php";
+$obj = new CTestMaker;
+if(!$obj->IsSysAdmin()) 
+{
+	header("location:index.php");
+}
+else
+{
+	$obj->PreparePageMenu();
+	$obj->tpl->set_file("teachers","teachers.html");
+	$obj->tpl->set_block("teachers","teacher_row","TEACHER_ROW");
+	$sql=sprintf("select * from teachers;");
+	$obj->query($sql);
+	$num=0;
+	while($obj->next_record())
+	{
+		$obj->tpl->set_var(array(
+							"NUM"=>++$num,
+							"TEName"=>$obj->f("TEName"),
+							"GroupCreator"=>$obj->f("GroupCreator"),
+							"TestCreator"=>$obj->f("TestCreator"),
+							"GroupAdmin"=>$obj->f("GroupAdmin"),
+							"TestAdmin"=>$obj->f("TestAdmin"),
+							"SysAdmin"=>$obj->f("SysAdmin"),
+							"ResultReader"=>$obj->f("ResultReader"),
+							"USPass"=>$obj->f("USPass"),
+							"ID_TE"=>$obj->f("ID_TE")
+						));
+		$obj->tpl->parse("TEACHER_ROW","teacher_row",true);
+	}
+	if($num==0)
+	{
+		$obj->tpl->set_var("TEACHER_ROW","none");
+	}
+	$obj->tpl->parse("CONTENT","teachers");
+	$obj->tpl->parse("OUT","common");
+	$obj->tpl->p("OUT");
+}
+?>

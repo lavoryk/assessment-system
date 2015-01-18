@@ -1,0 +1,59 @@
+<?php
+include "../inc/level_question.inc.php";
+$obj = new CLevelQuestion();
+if(!$obj->IsLogin())
+{
+	header("location:index.php");
+}
+else
+{
+	$ID_TEST=empty($_GET["ID_TEST"]) ? (0) : ($_GET["ID_TEST"]);
+	$ID_TEST=intval($ID_TEST);
+	$obj->PreparePageMenu();
+	if(!$obj->GetInfoTest($ID_TEST))
+	{
+		header("location:index.php");
+	}
+	else
+	{		
+		$obj->tpl->set_file("level_question","level_question.html");		
+		
+		$obj->tpl->set_var(array(
+							"TestName"=>$obj->TestName,	"IsBlock"=>$obj->IsBlock
+							));
+		$obj->tpl->set_var("ID_TEST",$ID_TEST);
+		if($obj->CanAdminTest($ID_TEST))		
+			$obj->tpl->set_var("DISABLED_EDIT","");
+		else
+			$obj->tpl->set_var("DISABLED_EDIT","disabled");
+		$obj->tpl->set_block("level_question","links_test","LINKS_TEST");
+		$obj->tpl->set_block("level_question","links_tests_block","LINKS_TESTS_BLOCK");	
+		if($obj->IsBlock=='Y')
+		{
+			$obj->tpl->set_var("LINKS_TEST","");
+			$obj->tpl->parse("LINKS_TESTS_BLOCK","links_tests_block");
+		}
+		else
+		{
+			$obj->tpl->set_var("LINKS_TESTS_BLOCK","");
+			$obj->tpl->parse("LINKS_TEST","links_test");		
+		}
+		$obj->tpl->set_block("level_question","level_row","LEVELS_ROWS");		
+		$obj->GetInfoLevelQuestion($ID_TEST);		
+		$ID_Level=1;
+		while(!($ID_Level>LEVEL_MAX))
+		{
+			$obj->tpl->set_var(array(
+							"ID_LEVEL"=>$ID_Level,
+							"Point"=>$obj->Point[$ID_Level],
+							"Number"=>$obj->Number[$ID_Level],
+							"QTY"=>$obj->QTYInTest[$ID_Level]));
+			$obj->tpl->parse("LEVELS_ROWS","level_row",true);
+			++$ID_Level;
+		}
+		$obj->tpl->parse("CONTENT","level_question");
+		$obj->tpl->parse("OUT","common");
+		$obj->tpl->p("OUT");
+	}
+}
+?>

@@ -1,0 +1,97 @@
+<script type="text/javascript">
+<!--
+function SelectGroupForm()
+{		
+	document.location = "group_priv.php?id_gr="+document.FormSelectGroup.id_gr.value;
+	return true;
+}
+function CheckGroupForm()
+{
+	if(document.FormSelectGroup.id_gr.value==0)
+	{
+		alert("Не вибрано групу!");
+	}
+	else
+	{			
+		document.location = "group_priv.php?id_gr="+document.FormSelectGroup.id_gr.value+"&id_te=-1";
+	}
+}
+function DelConfirm(ID_TE)
+{	
+	if(confirm("Ви впевнені?"))
+	{		
+		document.location = "group_priv_sql.php?id_gr="+document.FormSelectGroup.id_gr.value+"&id_te="+ID_TE+"&Action=DEL";
+	}
+}
+
+-->
+</script>
+<form name="FormSelectGroup" method="GET">
+<select name="id_gr" onchange="return SelectGroupForm();">
+<option value="0">Виберіть групу.</option>
+<!-- BEGIN row_group -->
+<option value="{ID_GR}" {SELECTED_GROUP}>{GrName}</option>
+<!-- END row_group -->
+</select> <a href="group_priv_by_teachers.php">Права доступу по викладачах</a>
+</form>
+<ul>
+<li>Для того, щоб користувач мав можливість лише використовувати та переглядати групу 
+студентів достатньо додати його до списку без надання додаткових прав.</li>
+<li>Для того, щоб користувач мав можливість використовувати, переглядати 
+групу студентів, та змінювати студентів достатньо 
+додати його до списку з правом CanChange.</li>
+<li>CanAdmin - це і так ясно.</li>
+</ul>
+<a href="javascript:CheckGroupForm()">Додати</a>
+<table id="list">
+<tr><th>№</th><th>Викладач</th><th>CanChange</th><th>CanAdmin</th><th colspan="2">Дії</th></tr>
+<!-- BEGIN row_group_priv -->
+<tr><td>{NUM}</td><td>{TENAME}</td><td>{CANCHANGE}</td><td>{CANADMIN}</td><td><a href="group_priv.php?id_gr={ID_GROUP_CURRENT}&id_te={ID_TE}">Редагувати</a></td><td><a href="javascript:DelConfirm({ID_TE})">Видалити</a></td></tr>
+<!-- END row_group_priv -->
+<!-- BEGIN row_group_priv_add_edit -->
+<script type="text/javascript">
+<!--
+function CheckFormAddEdit()
+{		
+	if(document.FormAddEdit.id_te.value==0)
+	{
+		alert("Виберіть викладача!");
+		return false;
+	}
+	document.FormAddEdit.action="group_priv_sql.php";
+	return true;
+}
+function ChangeSelectCanAdmin()
+{
+	if(document.FormAddEdit.CanAdmin.checked)
+	{
+		document.FormAddEdit.CanChange.checked=true;
+	}	
+}
+function ChangeSelectCanChange()
+{
+	if(!document.FormAddEdit.CanChange.checked)
+	{
+		document.FormAddEdit.CanAdmin.checked=false;
+	}	
+}
+-->
+</script>
+<form name="FormAddEdit" action="" method="GET" onsubmit="return CheckFormAddEdit();">
+<input type="hidden" name="id_gr" value="{ID_GROUP_CURRENT}" />
+<tr><td>{NUM}</td>
+<td>
+<select name="id_te">
+<option value="0">Виберіть викладача</option>
+<!-- BEGIN row_teacher -->
+<option value="{ID_TE}" {SELECTED_TEACHER}>{TENAME}</option>
+<!-- END row_teacher -->
+</select>
+</td>
+<td><input type="checkbox" name="CanChange" onclick="ChangeSelectCanChange();" {CANCHANGE_CHECKED} /></td>
+<td><input type="checkbox" name="CanAdmin" onclick="ChangeSelectCanAdmin();" {CANADMIN_CHECKED} /></td>
+<td><input type="submit" value="Записати" /></td><td><a href="group_priv.php?id_gr={ID_GROUP_CURRENT}">Відмінити</a></td></tr>
+</form>
+<!-- END row_group_priv_add_edit -->
+</table>
+<a href="javascript:CheckGroupForm()">Додати</a>

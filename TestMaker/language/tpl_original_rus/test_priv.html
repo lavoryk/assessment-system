@@ -1,0 +1,94 @@
+<script type="text/javascript">
+<!--
+function SelectTestForm()
+{		
+	document.location = "test_priv.php?id_test="+document.FormSelectTest.id_test.value;
+	return true;
+}
+function CheckTestForm()
+{
+	if(document.FormSelectTest.id_test.value==0)
+	{
+		alert("Не выбран тест!");
+	}
+	else
+	{		
+		document.location = "test_priv.php?id_test="+document.FormSelectTest.id_test.value+"&id_te=-1";
+	}
+}
+function DelConfirm(ID_TE)
+{	
+	if(confirm("Вы уверены?"))
+	{
+		document.location = "test_priv_sql.php?id_test="+document.FormSelectTest.id_test.value+"&id_te="+ID_TE+"&Action=DEL";
+	}
+}
+
+-->
+</script>
+<form name="FormSelectTest" method="GET">
+<select name="id_test" onchange="return SelectTestForm();">
+<option value="0">Выберите тест или блок тестов.</option>
+<!-- BEGIN row_test -->
+<option value="{ID_TEST}" {SELECTED_TEST}>{TestName}</option>
+<!-- END row_test -->
+</select> <a href="test_priv_by_teachers.php">Права доступа по преподавателям</a>
+</form>
+
+<ul>
+<li>Для того, чтобы пользователь имел возможность лишь использовать и пересматривать тест или блок тестов достаточно прибавить его к списку без предоставления дополнительных прав. </li><li> Для того, чтобы пользователь имел возможность использовать, пересматривать свойства теста или блока тестов, и изменять тестовые задачи теста достаточно прибавить его к списку с правом CanChange.</li>
+<li>CanAdmin - пользователь имеет полный доступ.</li>
+</ul>
+<a href="javascript:CheckTestForm()">Добавить</a>
+<table id="list">
+<tr><th>№</th><th>Преподаватель</th><th>CanChange</th><th>CanAdmin</th><th colspan="2">Действия</th></tr>
+<!-- BEGIN row_test_priv -->
+<tr><td>{NUM}</td><td>{TENAME}</td><td>{CANCHANGE}</td><td>{CANADMIN}</td><td><a href="test_priv.php?id_test={ID_TEST_CURRENT}&id_te={ID_TE}">Редактировать</a></td><td><a href="javascript:DelConfirm({ID_TE})">Удалить</a></td></tr>
+<!-- END row_test_priv -->
+<!-- BEGIN row_test_priv_add_edit -->
+<script type="text/javascript">
+<!--
+function CheckFormAddEdit()
+{		
+	if(document.FormAddEdit.id_te.value==0)
+	{
+		alert("Выберите преподавателя!");
+		return false;
+	}
+	document.FormAddEdit.action="test_priv_sql.php";
+	return true;
+}
+function ChangeSelectCanAdmin()
+{
+	if(document.FormAddEdit.CanAdmin.checked)
+	{
+		document.FormAddEdit.CanChange.checked=true;
+	}	
+}
+function ChangeSelectCanChange()
+{
+	if(!document.FormAddEdit.CanChange.checked)
+	{
+		document.FormAddEdit.CanAdmin.checked=false;
+	}	
+}
+-->
+</script>
+<form name="FormAddEdit" action="" method="GET" onsubmit="return CheckFormAddEdit();">
+<input type="hidden" name="id_test" value="{ID_TEST_CURRENT}" />
+<tr><td>{NUM}</td>
+<td>
+<select name="id_te">
+<option value="0">Выберите преподавателя</option>
+<!-- BEGIN row_teacher -->
+<option value="{ID_TE}" {SELECTED_TEACHER}>{TENAME}</option>
+<!-- END row_teacher -->
+</select>
+</td>
+<td><input type="checkbox" name="CanChange" onclick="ChangeSelectCanChange();" {CANCHANGE_CHECKED} /></td>
+<td><input type="checkbox" name="CanAdmin" onclick="ChangeSelectCanAdmin();" {CANADMIN_CHECKED} /></td>
+<td><input type="submit" value="Записать" /></td><td><a href="test_priv.php?id_test={ID_TEST_CURRENT}">Отменить</a></td></tr>
+</form>
+<!-- END row_test_priv_add_edit -->
+</table>
+<a href="javascript:CheckTestForm()">Добавить</a>

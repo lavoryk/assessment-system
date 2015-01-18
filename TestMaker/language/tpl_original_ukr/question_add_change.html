@@ -1,0 +1,230 @@
+<script type="text/javascript">
+<!--
+function CheckForm()
+{	
+	var i=0;
+	if({MAX_LEVEL_INDEX}>1)
+	{		
+		for(i=0;i<{MAX_LEVEL_INDEX};++i)
+		{			
+			if(document.QuestionForm.ID_LEVEL[i].checked)
+			{
+				break;
+			}
+		}
+	}
+	else
+	{
+		if(!document.QuestionForm.ID_LEVEL.checked)
+		{
+			i=1;
+		}
+	}
+	if(i=={MAX_LEVEL_INDEX})
+	{
+		alert("Не вибрано рівень складності!");
+		return false;
+	}
+	if(document.QuestionForm.Q_Body.value.length==0)
+	{
+		alert("Не вказано завдання");
+		document.QuestionForm.Q_Body.select();
+		return false;
+	}
+	if(document.QuestionForm.Q_TYPE.value==1)
+	{
+    	for(i=0;i<2;++i)
+    	{
+    		var A_B="A_Body["+i+"]";    	
+       		if(document.QuestionForm.elements[A_B].value.length==0)
+        	{
+        		alert("Перший варінт вірний та обов'язковий, другий варіант невірний та обв'язковий.\nВсі інші варіанти невірні та необов'язкові.");
+        		document.QuestionForm.elements[A_B].select();
+            	return false;
+        	}
+    	}
+    }
+    else if(document.QuestionForm.Q_TYPE.value==2)
+    {
+    	var count=0;    
+    	for (i=0; i<3; ++i)
+    	{
+    		var A_B="A_Body["+i+"]";
+        	var A_T="A_True["+i+"]";
+    		if (document.QuestionForm.elements[A_B].value.length==0)
+        	{
+        		alert("Необхідно вказати мінімум перші три варіанти, два з яких повинні бути вірними.");
+		       	return false;
+        	}
+        	if(document.QuestionForm.elements[A_T].checked)
+        		count++;
+	    }
+    	if (count < 2)
+    	{
+       		alert("Необхідно вказати мінімум перші три варіанти, два з яких повинні бути вірними.");
+        	return false;
+    	}    
+    }
+    else if(document.QuestionForm.Q_TYPE.value==3)
+    {
+        var A_B="A_Body["+i+"]";
+        if (document.QuestionForm.elements[A_B].value.length==0)
+        {
+            alert("Не вказана вірна відповідь.");
+            return false;
+        }
+    }
+    else if(document.QuestionForm.Q_TYPE.value==4)
+    {
+        var count = 0;
+        for (i = 0; i < document.QuestionForm.AnswersCount.value; ++i)
+    	{
+    	    var A_B = "A_Body["+i+"]";
+            if (document.QuestionForm.elements[A_B].value.length != 0)
+            {
+                ++count;
+            }
+    	}
+    	if (count < 2)
+        {
+    	    alert("Необхідно заповнити мінімум дві відповіді.");
+            return false;
+    	}
+    }
+    else if(document.QuestionForm.Q_TYPE.value==5)
+    {
+        var count = 0;
+        // alert(document.QuestionForm.AnswersCount.value);
+    	for (i = 0; i < document.QuestionForm.AnswersCount.value; ++i)
+    	{
+    	    var A_SB = "A_SecondBody["+i+"]";
+    		var A_B = "A_Body["+i+"]";
+    		if (document.QuestionForm.elements[A_B].value.length != 0 &&
+    		  document.QuestionForm.elements[A_SB].value.length == 0)
+        	{
+        		alert("Не вказано термін.");
+        		document.QuestionForm.elements[A_SB].select();
+		       	return false;
+        	}
+        	if (document.QuestionForm.elements[A_B].value.length == 0 &&
+    		  document.QuestionForm.elements[A_SB].value.length != 0)
+        	{
+        		alert("Не вказано визначення терміну.");
+        		document.QuestionForm.elements[A_B].select();
+		       	return false;
+        	}
+        	
+        	if (document.QuestionForm.elements[A_B].value.length != 0 &&
+    		  document.QuestionForm.elements[A_SB].value.length != 0)
+            {
+                ++count;
+    		}
+	    }
+	    if (count < 2)
+	    {
+	        alert("Необхідно заповнити мінімум дві відповіді.");
+	        return false;
+	    }
+    }
+    else
+    {
+    	alert("Internat Error");
+    	return false;
+    }
+	document.QuestionForm.action="question_sql.php";
+	return true;
+}
+function ChangeAnswersCount()
+{
+    if (document.QuestionForm.Q_TYPE.value != 3)
+    {
+    	for(i=0;i<document.QuestionForm.AnswersCount.value;++i)
+    	{
+    		var A_B="A_Body["+i+"]";
+    		var ID_AN="ID_AN["+i+"]";
+    		document.QuestionForm.elements[ID_AN].disabled=false;
+    		document.QuestionForm.elements[A_B].disabled=false;		
+    		//document.QuestionForm.elements[A_B].style.display='';
+    		if (document.QuestionForm.Q_TYPE.value != 1 &&
+    		  document.QuestionForm.Q_TYPE.value != 4 &&
+    		  document.QuestionForm.Q_TYPE.value != 5)
+    		{
+    			var A_T="A_True["+i+"]";
+    			document.QuestionForm.elements[A_T].disabled=false;
+    		}		
+    		document.getElementById(i).style.display = '';
+    	}	
+    	for(i=document.QuestionForm.AnswersCount.value;i<{ANSWER_COUNT_MAX};++i)
+    	{
+    		var A_B="A_Body["+i+"]";
+    		var A_T="A_True["+i+"]";
+    		var ID_AN="ID_AN["+i+"]";		
+    		document.QuestionForm.elements[A_T].disabled=true;
+    		document.QuestionForm.elements[ID_AN].disabled=true;
+    		document.QuestionForm.elements[A_B].disabled=true;
+    		//document.QuestionForm.elements[A_B].style.display='none';
+    		document.getElementById(i).style.display = 'none';
+    	}
+    }
+	return true;
+}
+-->
+</script>
+<form action="question_sql.php" method="POST" name="QuestionForm" onsubmit="return CheckForm();">
+<input type="hidden" name="ID_QU" value="{ID_QU}" />
+<input type="hidden" name="ID_TEST" value="{ID_TEST}" />
+<input type="hidden" name="Q_TYPE" value="{Q_TYPE}" />
+<table>
+<tr><th>Рівен складності</th><th>К-сть варіантів відповідей</th>
+<tr><td>
+<!-- BEGIN level_row -->
+<input type="radio" name="ID_LEVEL" value="{ID_LEVEL}" {CHECKED} />Рівень {ID_LEVEL}. К-сть балів {NUMBER}<br />
+<!-- END level_row -->
+</td>
+<td>
+<select {ANSWER_COUNT_DISABLED} onchange="return ChangeAnswersCount();" name="AnswersCount">
+<!-- BEGIN answer_count_row -->
+<option value="{ANSWER_COUNT_VALUE}" {ANSWER_COUNT_SELECTED}>{ANSWER_COUNT_VALUE} варіантів відповідей</option>
+<!-- END answer_count_row -->
+</select>
+</td>
+</tr>
+</table>
+<table>
+<tr><th colspan="2">Завдання</th></tr>
+<tr><td width="5%"> </td><td width="95%">{Q_BODY_HTML}</td></tr>
+<tr><td colspan="2">
+<!-- BEGIN block_q_type1 -->
+Перший варінт вірний та обов'язковий, другий варіант невірний та обв'язковий.<br />
+Всі інші варіанти невірні та необов'язкові.
+<!-- END block_q_type1 -->
+<!-- BEGIN block_q_type2 -->
+Необхідно вказати мінімум перші три варіанти, два з яких повинні бути вірними.
+<!-- END block_q_type2 -->
+<!-- BEGIN block_q_type3 -->
+Вкажіть одну вірну відповідь
+<!-- END block_q_type3 -->
+<!-- BEGIN block_q_type4 -->
+Вкажіть послідовність.
+<!-- END block_q_type4 -->
+<!-- BEGIN block_q_type5 -->
+Вкажіть термін і визначення йому.
+<!-- END block_q_type5 -->
+</td></tr>
+<!-- BEGIN answer_row -->
+<tr id="{A_INDEX}" style="position:relative;dispaly:none">
+<td  widsth="5%"><input type="checkbox" name="A_True[{A_INDEX}]" {DISABLED} {A_CHECKED} /></td>
+<td width="95%">{A_SECOND_BODY_HTML}{A_BODY_HTML}</td>
+<input type="hidden" name="ID_AN[{A_INDEX}]" value="{ID_AN}" />
+</tr>
+<!-- END answer_row -->
+<tr><td colspan="2"><input type="submit" value="Зберегти" {DISABLE_EDIT} />
+<input type="reset" value="Очистити" /> <input type="checkbox" name="AddNext" {CHECKED} />Додати наступне</td>
+</tr>
+</table>
+</form>
+<script type="text/javascript">
+<!--
+setTimeout("ChangeAnswersCount()",1000);
+-->
+</script>

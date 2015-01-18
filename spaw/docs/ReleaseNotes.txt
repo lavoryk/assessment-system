@@ -1,0 +1,23 @@
+SPAW Editor PHP Edition
+version 1.2.1
+Release Notes
+
+Thanks to everyone who downloaded, tried and supported SPAW Editor!
+
+This release fixes pretty bad XHTML rendering problem under IE and
+updates some language files.
+
+Check out ChangeLog.txt for the list of new features and bugfixes.
+
+If you are fluent in any of languages that are now included and 
+see any typos or mistakes please report to spaw@solmetra.com
+
+Don't forget that you can get answers to your questions by
+visiting our support forun at http://forums.solmetra.com and
+don't forget to help fellow developers looking for answers to
+the questions of your expertise
+
+Happy editing,
+Alan Mendelevich a.k.a. ailon
+alan@solmetra.com
+

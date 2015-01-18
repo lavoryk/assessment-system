@@ -1,0 +1,59 @@
+<script type="text/javascript">
+<!--
+function CheckForm()
+{
+   	if(document.FormStudent.STName.value.length==0)
+	{
+		alert("Не вказано імені студента!!!");
+		return false;
+	}
+	if(!document.FormStudent.s_check.checked && !document.FormStudent.p_check.checked)
+	{
+		alert("Вкажіть що змінювати!!!");
+		return false;
+	}   
+   	if(document.FormStudent.STPassConf.value!=document.FormStudent.STPass.value)
+	{
+	 	alert("Невідповідність паролю та його підтвердження!!!");
+        document.FormStudent.STPassConf.select();
+		return false;
+	}	
+	if(document.FormStudent.ID_ST.value!=0&&document.FormStudent.p_check.checked&&
+			!confirm("Пароль для студента "+document.FormStudent.STName.value+" буде змінено?"))			
+	{		
+			return false;
+	}
+	document.FormStudent.action="student_sql.php";
+    return true;    
+}
+-->
+</script>
+<!-- BEGIN exist_student_row -->
+<div class="error">Студент з ім'ям {ExistSTName} є в групі {ExistGrName}.</div>
+<!-- END exist_student_row -->
+<form action="" method="POST" name="FormStudent" onsubmit="return CheckForm()">
+<input type="hidden" name="ID_ST" value="{ID_ST}" />
+<input type="hidden" name="ID_GR" value="{ID_GR}" />
+<table id="list" cellspacing="1">
+<tr>
+<td>Ім'я студента</td>
+<td>
+<input type="text" value="{STName}" name ="STName" size="25" maxlength="50" {STNameDisable} />
+&nbsp;<input type="checkbox" name="s_check" {s_check} {s_dis} />&nbsp;Змінити ім'я
+</td>
+</tr>
+<tr>
+<td>Новий пароль</td>
+<td rowspan="2">
+<input  type="password" name ="STPass" size="25" maxlength="50" />
+&nbsp;<input type="checkbox" name="p_check" {p_check} {p_dis} />&nbsp;Змінити пароль
+<br/><input  type="password" name ="STPassConf" size="25" maxlength="50" />
+</td>
+</tr>
+<tr>
+<td>Підтвердження паролю</td>
+</tr>
+<tr><td><button type="submit" >Вперед</button></td><td>
+<button type="reset">Очистити</button></td></tr>
+</table>
+</form>

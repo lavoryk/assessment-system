@@ -1,0 +1,67 @@
+<script type="text/javascript">
+<!--
+function selectMenu( mItem )
+{
+	if (document.getElementById(mItem).style.display == 'none') {
+		document.getElementById(mItem).style.display = ''; 
+	} else {
+		document.getElementById(mItem).style.display = 'none'; 
+	}
+}
+function DelConfirm(ID_TEST,IsBlock)
+{	
+	if(confirm("Вы уверены?"))
+	{
+		document.location = 'test_sql.php?ID_TEST='+ID_TEST+'&IsBlock='+IsBlock+'&Action=DEL';
+	}
+}
+-->
+</script>
+<!-- BEGIN add_new_test -->
+<a href="test_add_change.php?IsBlock={IsBlock}">&bull; Добавить новый тест.</a>
+<!-- END add_new_test -->
+<a href="test_priv.php" target="test_priv">&bull; Права доступа к тестам и блокам тестов.</a>
+<a href="question_move.php" target="question_move">&bull; Переместить/скопировать/удалить задачу.</a>
+<!--{PAGE_LINK_LINE}<br />-->
+<div class='caption'>&bull; Список тестов.</div>
+<table id="list" cellspacing="1">
+<tr><th>№</th><th>Название теста</th><th>Время на тест</th><th>Расписание теста</th><th colspan="2">Задание теста</th></tr>
+<!-- BEGIN test_row -->
+<tr>
+<td><img src="img/join.gif" alt="L" /><img src="img/da.gif" alt=">>" />{NUM}</td>
+<td><a href="javascript:selectMenu('{ID_TEST}')">{TestName}</a></td>
+<td>{TestTime}</td>
+<td><a href="time_table.php?ID_TEST={ID_TEST}">Рaсписание</a></td>
+<td><a href="questions.php?ID_TEST={ID_TEST}">Редактировать</a></td>
+<td><a href="questions_show_all.php?id_test={ID_TEST}" target="questions_all">Все задания</a></td>
+</tr>
+<tr><td colspan="6">
+<div id="{ID_TEST}" style="position:relative;display:none;">
+<!-- BEGIN can_admin_row -->
+<table id="sublist">
+	<tr><th colspan="3">Действия</th><th>Время на один вопрос</th></tr>
+	<tr>	
+	<td><a href="level_question.php?ID_TEST={ID_TEST}">-Уровни задач-</a></td>
+	<td><a href="test_add_change.php?ID_TEST={ID_TEST}&IsBlock={IsBlock}">-Редактировать свойства теста-</a></td>
+	<td><a href="javascript:DelConfirm({ID_TEST},'{IsBlock}')">-Удалить-</a></td>
+	<td>{IsTimeForOneQuestion}</td>
+	</tr>
+</table>
+<!-- END can_admin_row -->
+<!-- BEGIN can_use_row -->
+<table id="sublist">
+	<tr><th colspan="2">Действия</th><th>Время на один вопрос</th></tr>
+	<tr>	
+	<td><a href="level_question.php?ID_TEST={ID_TEST}">-Просмотреть уровни задач-</a></td>
+	<td><a href="test_add_change.php?ID_TEST={ID_TEST}&IsBlock={IsBlock}">-Просмотреть свойства теста-</a></td>
+	<td>{IsTimeForOneQuestion}</td>
+	</tr>
+</table>
+<!-- END can_use_row -->
+</div>
+</td></tr>
+<!-- END test_row -->
+</table>
+<!--{PAGE_LINK_LINE}<br />-->
+{ADD_NEW_TEST}
+<a href="test_priv.php" target="test_priv">Права доступа к тестам и блокам тестов</a>

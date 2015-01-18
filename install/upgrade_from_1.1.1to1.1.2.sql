@@ -1,0 +1,1 @@
+ALTER TABLE `tests` ADD `DisableShowPrevTask` ENUM( 'N', 'Y' ) DEFAULT 'N' NOT NULL AFTER `TestTime` ;

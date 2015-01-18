@@ -1,0 +1,5 @@
+CREATE TABLE `answers2` (
+`ID_QU` INT UNSIGNED NOT NULL ,
+`A_SecondBody` TEXT NOT NULL ,
+INDEX ( `ID_QU` ) 
+) TYPE = InnoDB;

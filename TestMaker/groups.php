@@ -1,0 +1,94 @@
+<?php
+include "../inc/group.inc.php";
+$obj=new CTestMaker();
+if(!$obj->IsLogin())
+{
+	header("location:index.php");
+}
+else
+{
+	$obj->PreparePageMenu();
+	$obj->tpl->set_file("groups", "groups.html");
+	$obj->tpl->set_block("groups","group_row","GROUPS_ROWS");
+	$obj->tpl->set_block("groups","group_row_add_edit","GROUP_ROW_ADD_EDIT");
+	$obj->tpl->set_block("group_row_add_edit","error_add_edit","ERROR_ADD_EDIT");
+	$obj->tpl->set_var("GROUP_ROW_ADD_EDIT","");
+	$obj->tpl->set_block("groups","add_new_group","ADD_NEW_GROUP");
+	if($obj->IsGroupCreator())
+	{
+		$obj->tpl->parse("ADD_NEW_GROUP","add_new_group");
+	}
+	else
+	{
+		$obj->tpl->set_var("ADD_NEW_GROUP","");
+	}
+	if($obj->IsGroupAdmin())
+	{
+		$query=sprintf("SELECT groups.*, 'Y' AS 'CanAdmin', 'Y' AS 'CanChange' FROM groups ORDER BY GrName;");
+	}
+	else
+	{
+		$query=sprintf("SELECT groups.*, group_priv.CanAdmin, group_priv.CanChange FROM groups,teachers,group_priv WHERE (groups.ID_GR=group_priv.ID_GR AND group_priv.ID_TE=teachers.ID_TE AND teachers.ID_TE=%d) ORDER BY GrName;",
+								$obj->GetID_TE());
+	}
+	// Якщо group_priv.Admin=='Y' Може видаляти та редагувати тест інакше НІ!
+	//
+	$obj->query($query);	
+	$obj->tpl->set_block("group_row","can_change","CAN_CHANGE");
+	$obj->tpl->set_block("group_row","can't_change","CAN'T_CHANGE");
+	$obj->tpl->set_var("CAN'T_CHANGE","");
+	$ID_GR=empty($_GET["ID_GR"])?(0):$_GET["ID_GR"];
+	$ID_GR=intval($ID_GR);
+	$num=0;
+	while($obj->next_record())
+	{		
+		$obj->tpl->set_var(array(
+						"NUM"=>++$num,
+						"GrName"=>$obj->f("GrName"),
+						"ID_GR"=>$obj->f("ID_GR")
+							)	
+						);
+		if($ID_GR==$obj->f("ID_GR"))
+		{
+			$obj->tpl->parse("GROUPS_ROWS","group_row_add_edit",true);
+		}
+		else
+		{
+			if($obj->f("CanAdmin")=='Y')
+			{
+				$obj->tpl->parse("CAN_CHANGE","can_change");
+			}
+			else 
+			{
+				$obj->tpl->parse("CAN_CHANGE","can't_change");
+			}		
+			$obj->tpl->parse("GROUPS_ROWS","group_row",true);
+		}
+	}
+	if($ID_GR==-1)
+	{
+		$obj->tpl->set_var(array(
+						"NUM"=>++$num,
+						"GrName"=>"",
+						"ID_GR"=>0
+						));
+		$obj->tpl->parse("GROUPS_ROWS","group_row_add_edit",true);		
+	}
+	$error_no=empty($_GET["error_no"])?(0):intval($_GET["error_no"]);		
+	if($error_no==ERROR_GROUP_ALLREADY_EXISTS)
+	{
+		$obj->tpl->parse("ERROR_ADD_EDIT","error_add_edit");
+	}
+	else
+	{
+		$obj->tpl->set_var("ERROR_ADD_EDIT","");
+	}
+	if($num==0)
+	{
+		$obj->tpl->set_var("GROUPS_ROWS","");
+	}
+	$obj->tpl->parse("CONTENT","groups");
+	$obj->tpl->parse("OUT","common");
+	$obj->tpl->p("OUT");
+}
+?>

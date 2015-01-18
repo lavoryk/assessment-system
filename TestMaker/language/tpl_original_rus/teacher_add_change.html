@@ -1,0 +1,43 @@
+<script type="text/javascript">
+<!-- 
+	function CheckFormTeacher()
+	{
+		if(document.FormTeacher.TEName.value.length==0)
+		{
+			alert("Не указано имя!");
+			document.FormTeacher.TEName.select();
+			return false;
+		}
+		if(document.FormTeacher.elements["USPass"]!=null && document.FormTeacher.elements["USPass_2"]!=null)
+		{
+			if(document.FormTeacher.elements["USPass"].value!=document.FormTeacher.elements["USPass_2"].value)
+			{
+				alert("Не совпадают пароли!");
+				return false;
+			}	
+		}		
+		document.FormTeacher.action="teacher_sql.php";
+		return true;
+	}
+-->
+</script>
+<div class='caption'>&bull; Изменение данных преподавателя.</div>
+<form action="" method="POST" name="FormTeacher" onsubmit="return CheckFormTeacher();">
+<input type="hidden" name="ID_TE" value="{ID_TE}" />
+<table id="list" cellspacing="1" style="width:60%">
+<tr><td>Имя</td><td><input type="text" name="TEName" size="35" maxlength="35" value="{TEName}" /></td></tr>
+<tr><td>Создатель тестов</td><td><input type="checkbox" name="TestCreator" {TestCreator} /></td></tr>
+<tr><td>Создатель групп</td><td><input type="checkbox" name="GroupCreator" {GroupCreator} /></td></tr>
+<tr><td>Администратор тестов</td><td><input type="checkbox" name="TestAdmin" {TestAdmin} /></td></tr>
+<tr><td>Администратор групп</td><td><input type="checkbox" name="GroupAdmin" {GroupAdmin} /></td></tr>
+<tr><td>Администратор системы</td><td><input type="checkbox" name="SysAdmin" {SysAdmin} /></td></tr>
+<tr><td>Может просматривать все результаты</td><td><input type="checkbox" name="ResultReader" {ResultReader} /></td></tr>
+<!-- BEGIN New_Pass -->
+<tr><td>Пароль</td><td><input type="password" name="USPass"/></td></tr><tr><td>Подтверждение</td><td><input type="password" name="USPass_2"/></td></tr>
+<!-- END New_Pass -->
+<!-- BEGIN Change_Pass -->
+<tr><td colspan="2"><a href="teacher_change_pass.php?ID_TE={ID_TE}">Сменить пароль</a></td></tr>
+<!-- END Change_Pass -->
+</table>
+&nbsp; <input type="submit" value="Сохранить"/> &nbsp; <input type="reset" value="Очистить"/>
+</form>

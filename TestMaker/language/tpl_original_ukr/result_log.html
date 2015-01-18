@@ -1,0 +1,18 @@
+Студент <b>{StName}</b>, групи <b>{GrName}</b> з тесту <b>{TestName}</b> отримав отримав <b>{Result}</b>.
+<table id="list" border="0" cellpadding="0" cellspacing="0" width="100%">
+<!-- BEGIN row_question -->
+<!-- BEGIN row_correct -->
+<tr><td colspan="2">№ {NUM}</td><td>На завдання з рівенем {ID_Level}, кількістю балів {Point} дано <font color="Green"><b>вірну відповідь</b></font>.</td></tr>
+<!-- END row_correct -->
+<!-- BEGIN row_incorrect -->
+<tr><td colspan="2">№ {NUM}</td><td>На завдання з рівенем {ID_Level}, кількістю балів {Point} дано <font color="Red"><b>не вірну відповідь</b></font>.</td></tr>
+<!-- END row_incorrect -->
+<tr><th colspan="3">Питання</th></tr>
+<tr><td colspan="2"> </td><td>{Q_Body}</td></tr>
+<tr><th width="5%">Студ.Вар.</th><th width="5%">Вiрн.Вар.</th><th>Відповіді</th></tr>
+<!-- BEGIN row_answer -->
+<tr><td>{ST_V}</td><td>{REAL_V}</td><td>{A_Body}</td></tr>
+<!-- END row_answer -->
+<tr><td colspan="3"><hr /></td></tr>
+<!-- END row_question -->
+</table>

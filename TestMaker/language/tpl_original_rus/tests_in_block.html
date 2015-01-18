@@ -1,0 +1,26 @@
+Быстрый переход к
+<a href="test_add_change.php?ID_TEST={ID_TEST_BLOCK}&IsBlock=Y">к свойствам</a>,
+<a href="level_question.php?ID_TEST={ID_TEST_BLOCK}">к уровням</a> блока теста.
+<div class='caption'>&bull; Просмотр тестов блока <b>{BLOCKNAME}</b>.</div>
+<table id="list" cellspacing="1">
+<caption>Тесты, которые входят в блок</caption>
+<tr><th>№</th><th>Названия тестов данного блока</th><th>Действия</th></tr>
+<!-- BEGIN tests_in_block_row_top -->
+<tr>
+<td width="25%"><img src="img/join.gif"alt="" /><img src="img/da.gif" alt="" /> {NUM_TOP}</td>
+<td>{TestName_top}</td><td width="25%"><a href="tests_in_block_sql.php?ID_TEST={ID_TEST}&ID_TEST_BLOCK={ID_TEST_BLOCK}&Action=DEL">Удалить тест с блока</a></td>
+</tr>
+<!-- END tests_in_block_row_top -->
+</table>
+
+<table id="list" cellspacing="1">
+<caption>Тесты, которые не входят в блок</caption>
+<tr><th>№</th><th>Названия тестов</th><th>Действия</th></tr>
+<!-- BEGIN tests_in_block_row -->
+<tr>
+<td width="25%"><img src="img/join.gif"alt="" /><img src="img/da.gif" alt="" /> {NUM}</td>
+<td>{TestName}</td><td width="25%"><a href="tests_in_block_sql.php?ID_TEST={ID_TEST}&ID_TEST_BLOCK={ID_TEST_BLOCK}&Action=ADD">Добавить тест в блок</a></td>
+</tr>
+<!-- END tests_in_block_row -->
+</table>
+ 

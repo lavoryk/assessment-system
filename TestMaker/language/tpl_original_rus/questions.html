@@ -1,0 +1,64 @@
+<script type="text/javascript">
+<!--
+function DelConfirm(id_test,id_qu)
+{
+	
+	if(confirm("Вы уверенны?"))
+	{
+		document.location = 'question_sql.php?ID_TEST='+id_test+'&ID_QU='+id_qu+'&Action=DEL';
+	}
+}
+function selectMenu( mItem )
+{
+	if (document.getElementById(mItem).style.display == 'none') {
+		document.getElementById(mItem).style.display = ''; 
+	} else {
+		document.getElementById(mItem).style.display = 'none'; 
+	}
+}
+
+-->
+</script>
+Быстрый переход к
+<a href="test_add_change.php?ID_TEST={ID_TEST}&IsBlock=N">свойствам</a>,
+<a href="level_question.php?ID_TEST={ID_TEST}">уровням</a> теста.
+<div class="caption">Задание теста <b>{TestName}</b></div>
+<!-- BEGIN add_new_question -->
+<a href="question_add_change.php?ID_TEST={ID_TEST}&Q_TYPE=1">Добавить задание закрытого типа с одним вариантом ответа</a><br />
+<a href="question_add_change.php?ID_TEST={ID_TEST}&Q_TYPE=2">Добавить задание закрытого типа с несколькими вариантами ответов</a><br />
+<a href="question_add_change.php?ID_TEST={ID_TEST}&Q_TYPE=3">Добавить задание открытого тмпа с одним вариантом ответа</a><br />
+<a href="question_add_change.php?ID_TEST={ID_TEST}&Q_TYPE=4">Добавить задание на установление последовательности</a><br />
+<a href="question_add_change.php?ID_TEST={ID_TEST}&Q_TYPE=5">Добавить задание на соответствие</a>
+<!-- END add_new_question -->
+<table id="list">
+<caption>
+<!-- BEGIN lelel_info_row -->
+Содержит {QTYINTEST} заданий {LEVEL}-го уровня. Должен содержать минимум {NUMBER2} заданий {LEVEL}-го уровня.<br />
+<!-- END lelel_info_row -->
+</caption>
+<tr><th>№</th><th>Уровень</th><th>Задание</th><th>Ответ</th><th colspan="2">Действия</th></tr>
+<!-- BEGIN question_row -->
+<tr><td><img src="img/join.gif" alt="" /><img src="img/da.gif" alt="" />{NUM}</td>
+<td>{ID_Level}</td>
+<td>{Q_BODY}</td>
+<td><a href="javascript:selectMenu({ID_QU})">Пок./Спр.</a></td>
+<!-- BEGIN can_change -->
+<td><a href="question_add_change.php?ID_QU={ID_QU}">Редактировать</a></td>
+<td><a href="javascript:DelConfirm({ID_TEST},{ID_QU})">Удалить</a></td></tr>
+<!-- END can_change -->
+<!-- BEGIN can_not_change -->
+<td colspan="2"><a href="question_add_change.php?ID_QU={ID_QU}">Просмотреть</a></td>
+<!-- END can_not_change -->
+<tr><td colspan="2"> </td><td colspan="4">
+<div id="{ID_QU}" style="position:relative;display:none;">
+<table id="sublist" cellspacing="1">
+<!-- BEGIN answer_row -->
+<tr><td>{A_True}</td><td>{A_Body}</td></tr>
+<!-- END answer_row -->
+</table>
+</div>
+</td>
+</tr>
+<!-- END question_row -->
+</table>
+{ADD_NEW_QUESTION}

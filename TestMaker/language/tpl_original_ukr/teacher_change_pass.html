@@ -1,0 +1,26 @@
+<script type="text/javascript">
+<!-- 
+	function CheckFormTeacherPassword()
+	{	
+		if(document.FormTeacherPassword.elements["USPass"].value!=document.FormTeacherPassword.elements["USPass_2"].value)
+		{
+			alert("Не співпадають паролі!");
+			return false;
+		}	
+		document.FormTeacherPassword.action="teacher_change_pass_sql.php";
+		return true;
+	}
+-->
+</script>
+<div class='caption'>&bull; Зміна паролю викладача "{TEName}".</div>
+<form action="" method="POST" name="FormTeacherPassword" onsubmit="return CheckFormTeacherPassword();">
+<input type="hidden" name="ID_TE" value="{ID_TE}" />
+<table id="list" cellspacing="1" style="width:60%">
+<!-- BEGIN oldpass -->
+<tr><td>Попередній пароль</td><td><input type='password' name='OLDPass'/></td></tr>
+<!-- END oldpass -->
+<tr><td>Новий пароль</td><td><input type='password' name='USPass'/></td></tr>
+<tr><td>Підтверження нового паролю</td><td><input type='password' name='USPass_2'/></td></tr>
+</table>
+&nbsp; <input type="submit" value="Змінити"/> &nbsp; <input type="reset" value="Очистити"/>
+</form>

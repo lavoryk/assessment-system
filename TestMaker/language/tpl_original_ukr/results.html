@@ -1,0 +1,63 @@
+<script type="text/javascript">
+<!--
+function DelConfirm(ID_RE)
+{	
+	if(confirm("Ви впевнені?"))
+	{		
+		document.location='results_sql.php?ID_RE='+ID_RE;
+	}
+}
+function DelLogConfirm(ID_RE)
+{	
+	if(confirm("Ви впевнені, що бажаєте видалити протокол тестування?\n(Результат не буде видалено)"))
+	{		
+		document.location='results_sql.php?ID_RE='+ID_RE+'&Action=DEL_LOG';
+	}
+}
+-->
+</script>
+<div class='caption'>&bull; Виберіть групу та тест щоб переглянути результати.</div>
+<form action="results.php" method="GET" name="FormShowResult">
+<select name="ID_GR" onchange="return document.FormShowResult.submit();">
+<option value ="0">Виберіть групу</option>
+<!-- BEGIN group_row -->
+<option value ="{ID_GR}" {G_SELECT}>{GrName}</option>
+<!-- END group_row -->
+</select>&nbsp;
+<select name="ID_TEST" onchange="return document.FormShowResult.submit();">
+<option value ="0">Виберіть тест</option>
+<!-- BEGIN test_row -->
+<option value ="{ID_TEST}" {T_SELECT}>{TestName}</option>
+<!-- END test_row -->
+</select>&nbsp;
+<button type="submit">Оновити</button><br />
+<table cellspacing="1" id="list">
+<tr><th>№</th><th>Ім'я</th><th>Результат</th><th>Дата</th><th colspan="3">Дія</th></tr>
+<!-- BEGIN student_row -->
+<tr>
+<td><img src="img/join.gif"alt="" /><img src="img/da.gif" alt="" /> {NUM}</td>
+<td>{STName}</td>
+<td>{Result}</td>
+<td>{FDate}</td>
+<!-- BEGIN can_del_result_row -->
+	<!-- BEGIN log_row -->
+	<td><a href="result_log.php?ID_RE={ID_RE}" target="_blank">Протокол тестування</a></td>
+	<td><a href="javascript:DelLogConfirm({ID_RE})">Знищити протокол тестування</a></td>	
+	<!-- END log_row -->
+	<!-- BEGIN no_log_row -->
+	<td colspan="2">Протокол тестування відсутній</td>
+	<!-- END no_log_row -->
+	<td><a href="javascript:DelConfirm({ID_RE})">Видалити</a></td>
+<!-- END can_del_result_row -->
+<!-- BEGIN can't_del_result_row -->
+	<!-- BEGIN log_row -->
+	<td colspan="3"><a href="result_log.php?ID_RE={ID_RE}" target="_blank">Протокол тестування</a></td>	
+	<!-- END log_row -->
+	<!-- BEGIN no_log_row -->
+	<td colspan="3">Протокол тестування відсутній</td>
+	<!-- END no_log_row -->
+<!-- END can't_del_result_row -->
+</tr>
+<!-- END student_row -->
+</table>
+</form>

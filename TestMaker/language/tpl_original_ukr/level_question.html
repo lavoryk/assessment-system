@@ -1,0 +1,43 @@
+<!-- BEGIN links_test -->
+Швидкий перехід до
+<a href="test_add_change.php?ID_TEST={ID_TEST}&IsBlock={IsBlock}">властивостей</a>,
+<a href="questions.php?ID_TEST={ID_TEST}">питань</a> тесту.
+<!-- END links_test -->
+<!-- BEGIN links_tests_block -->
+Швидкий перехід до
+<a href="test_add_change.php?ID_TEST={ID_TEST}&IsBlock={IsBlock}">властивостей</a>,
+<a href="tests_in_block.php?ID_TEST_BLOCK={ID_TEST}">тестів, що входять в блок тестів</a>.
+<!-- END links_tests_block -->
+<div class="caption">Рівні складності тесту <b>{TestName}</b></div>
+<table id="list" cellspacing="1">
+<tr><th>№ Рівня</th><th>К-сть балів</th><th>К-ть завдань</th><th>К-ть завдань в базі тестів</th><th colspan="3">Дії</th></tr>
+<form action="level_question_sql.php" method="POST" name="FormLevel">
+<input type="hidden" name="ID_TEST" value="{ID_TEST}" />
+<!-- BEGIN level_row -->
+<tr>
+<td><img src="img/join.gif" alt="" /><img src="img/da.gif" alt="" />{ID_LEVEL}</td>
+<td><input type="text" size="3" maxlength="3" name="Point[{ID_LEVEL}]" value="{Point}" /></td>
+<td><input size="3" maxlength="3" type="text" name ="Number[{ID_LEVEL}]" value="{Number}" /></td>
+<td>{QTY}</td>
+<td>Понизити рівень</td>
+<td>Підвищити рівень</td>
+<td>Знищити завдання</td>
+</tr>
+<!-- END level_row -->
+<tr>
+<td colspan="3"><input type="submit"  value="Зберегти" {DISABLED_EDIT} /></td>
+<td colspan="4"><input type="reset"  value="Очистити" /></td>
+</tr>
+</form>
+<tr>
+<td colspan="7">
+Рівень завдань визначає складність.  Чим більше рівень тим більша складність. Кількість балів
+визначає "вартість" за вірний розв'язок завдання. Ці бали включаються в кінцеви результат.
+Кількість завдань визначає кількість тестових завдань, що будуть в ключені в згенерований тест (Див. програвач тестів).
+Якщо є необхідність знищити, той чи інший рівень ТЕСТУ - необхідно позбутись завдань даного рівня і К-сть балів = 0 та К-ть завдань = 0. 
+Якщо є необхідність знищити, той чи інший рівень БЛОКУ ТЕСТІВ - К-сть балів = 0 та К-ть завдань = 0. 
+Якщо є потреба не включати в ТЕСТ або БЛОК ТЕСТІВ якийсь рівень то встановіть К-ть завдань = 0.
+</td>
+</tr>
+</table>
+<a href="tests.php?IsBlock={IsBlock}">Повернутись назад</a>

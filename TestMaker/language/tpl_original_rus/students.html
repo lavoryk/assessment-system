@@ -1,0 +1,38 @@
+<script type="text/javascript">
+<!--
+function DelConfirm(ID_ST,ID_GR)
+{	
+	if(confirm("Вы уверены?"))
+	{
+		document.location ='student_sql.php?ID_ST='+ID_ST+'&ID_GR='+ID_GR+'&Action=DEL';
+	}
+}
+-->
+</script>
+<div class="caption">&bull; Студенты группы <b>{GRNAME}</b>.</div>
+<!-- BEGIN add_new_student -->
+<a href="student_add_change.php?ID_GR={ID_GR}">Добавить нового студента</a>
+<!-- END add_new_student -->
+<table id="list" cellspacing="1">
+<tr><th>№</th><th>Студент</th><th colspan="4">Действия</th></tr>
+<!-- BEGIN student_row -->
+<tr bgcolor="{bg}">
+<td><img src="img/join.gif" alt="" /><img src="img/da.gif" alt="" />{NUM}</td>
+<td>{STName}</td>
+<td><a href="results_student.php?ID_ST={ID_ST}">Все результаты</a></td>
+<!-- BEGIN can_change -->
+<td><a href="student_add_change.php?ID_ST={ID_ST}&ID_GR={ID_GR}">Редактировать</a></td>
+<td><a href="student_add_change.php?ID_ST={ID_ST}&ID_GR={ID_GR}&Action=CHANGE_PASS">Сменить пароль</a></td>
+<td><a href="javascript:DelConfirm({ID_ST},{ID_GR})">Удалить</a></td>
+<!-- END can_change -->
+<!-- BEGIN can_not_change -->
+<td><a href="student_add_change.php?ID_ST={ID_ST}&ID_GR={ID_GR}">Просмотреть</a></td>
+<td colspan="2"><a href="student_add_change.php?ID_ST={ID_ST}&ID_GR={ID_GR}&Action=CHANGE_PASS">Сменить пароль</a></td>
+<!-- END can_not_change -->
+
+</tr>
+<!-- END student_row -->
+</table>
+<!-- BEGIN add_new_student -->
+<a href="student_add_change.php?ID_GR={ID_GR}">Добавить нового студента</a>
+<!-- END add_new_student -->
